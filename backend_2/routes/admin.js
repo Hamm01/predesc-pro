@@ -34,7 +34,7 @@ router.post('/signin', async (req, res) => {
   try {
     const adminExist = await Admin.findOne({ username, password })
     if (adminExist) {
-      const token = jwt.sign({ username }, JWTSECRET)
+      const token = jwt.sign({ username, role: 'admin' }, JWTSECRET)
       res.json({ token })
     } else {
       res.status(411).json({ msg: 'Invalid user details' })
@@ -46,6 +46,13 @@ router.post('/signin', async (req, res) => {
 
 router.post('/courses', adminMiddleware, async (req, res) => {})
 
-router.get('/courses', adminMiddleware, async (req, res) => {})
+router.get('/courses', adminMiddleware, async (req, res) => {
+  try {
+    const courses = await Course.find({})
+    res.json({ courses: courses })
+  } catch (err) {
+    res.status(500).json({ msg: 'Internal error' })
+  }
+})
 
 module.exports = router
