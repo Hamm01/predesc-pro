@@ -1,0 +1,19 @@
+{
+  "name": "coursebackend",
+  "version": "1.0.0",
+  "description": "writing admin and user routes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hamm01/predesc-pro.git"
+  },
+  "author": "Himanish",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hamm01/predesc-pro/issues"
+  },
+  "homepage": "https://github.com/Hamm01/predesc-pro#readme"
+}
