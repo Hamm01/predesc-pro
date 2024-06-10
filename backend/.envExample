@@ -1,0 +1,2 @@
+EXPRESS_PORT=3000
+MONGODB_URI=mongodb+srv://user:password@cluster0.ovmagik.mongodb.net/Dbname
