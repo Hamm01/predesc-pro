@@ -3,15 +3,23 @@ const mongoose = require('mongoose')
 
 mongoose.connect(process.env.MONGODB_URI)
 
-const AdminSchema = new mongoose.Schema({})
+const AdminSchema = new mongoose.Schema({
+  username: String,
+  password: String
+})
 
 const UserSchema = new mongoose.Schema({})
 
-const CourseSchema = new mongoose.Schema({})
+const CourseSchema = new mongoose.Schema({
+  title: String,
+  description: String,
+  price: Number,
+  imageLink: String
+})
 
 const Admin = mongoose.model('Admin', AdminSchema)
-const User = mongoose.model('Admin', UserSchema)
-const Course = mongoose.model('Admin', CourseSchema)
+const User = mongoose.model('User', UserSchema)
+const Course = mongoose.model('Course', CourseSchema)
 
 module.exports = {
   Admin,
