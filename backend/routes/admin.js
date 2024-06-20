@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const adminMiddleware = require('../middlewares/admin')
-const { Admin } = require('../db')
+const { Admin, Course } = require('../db')
 const router = Router()
 
 router.post('/signup', async (req, res) => {
@@ -25,12 +25,17 @@ router.post('/signup', async (req, res) => {
   }
 })
 
-router.post('/signin', adminMiddleware, (req, res) => {
-  // Admin login route
-})
-
-router.post('/courses', adminMiddleware, (req, res) => {
-  // Route for creating new Course
+router.post('/courses', adminMiddleware, async (req, res) => {
+  const title = req.body.title
+  const description = req.body.description
+  const imageLink = req.body.imageLink
+  const price = req.body.price
+  try {
+    const course = await Course.create({ title, description, imageLink, price })
+    res.json({ msg: 'Course Created Succesfully', courseId: course._id })
+  } catch (err) {
+    res.status(500).json({ msg: 'Internal some error occured', err })
+  }
 })
 
 router.get('/courses', adminMiddleware, (req, res) => {
