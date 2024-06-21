@@ -38,8 +38,13 @@ router.post('/courses', adminMiddleware, async (req, res) => {
   }
 })
 
-router.get('/courses', adminMiddleware, (req, res) => {
-  // Route for getting the course list
+router.get('/courses', adminMiddleware, async (req, res) => {
+  try {
+    const courses = await Course.find({})
+    res.json({ courses: courses })
+  } catch (err) {
+    res.status(500).json({ msg: 'Internal error' })
+  }
 })
 
 module.exports = router
