@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const userMiddleware = require('../middlewares/user')
-const { User } = require('../db')
+const { User, Course } = require('../db')
 const router = Router()
 
 router.post('/signup', async (req, res) => {
@@ -24,6 +24,16 @@ router.post('/signup', async (req, res) => {
       .json({ msg: 'Bad Request username and password cannot be empty' })
   }
 })
+router.get('/courses', async (req, res) => {
+  // This will be an open endpoint for all users to see the courses on website
+  try {
+    const courses = await Course.find({})
+    res.json(courses)
+  } catch (err) {
+    res.status(500).send({ msg: 'Internal Server Error' })
+  }
+})
+
 router.post('/signin', userMiddleware, (req, res) => {
   // User Login Route
 })
