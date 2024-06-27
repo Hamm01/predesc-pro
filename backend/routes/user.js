@@ -34,12 +34,28 @@ router.get('/courses', async (req, res) => {
   }
 })
 
-router.post('/signin', userMiddleware, (req, res) => {
-  // User Login Route
-})
+router.post('/courses/:courseId', userMiddleware, async (req, res) => {
+  const courseId = req.params.courseId
+  const username = req.headers.username
+  // Adding the Course id into the purchasedCourses array of user
+  try {
+    const courseAvailable = await Course.findOne({ _id: courseId })
+    if (courseAvailable) {
+      // pushing the course into user
+      const check = await User.updateOne(
+        { username },
+        {
+          $push: {
+            purchasedCourses: courseId
+          }
+        }
+      )
 
-router.post('/courses/:courseId', userMiddleware, (req, res) => {
-  // Implementing the Course puchase Feature
+      res.json({ msg: 'Course Successfully added' })
+    }
+  } catch (e) {
+    res.status(500).send({ msg: 'Internal Server Error' })
+  }
 })
 
 router.get('/purchasedCourses', userMiddleware, (req, res) => {
