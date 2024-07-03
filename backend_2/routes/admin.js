@@ -44,9 +44,22 @@ router.post('/signin', async (req, res) => {
   }
 })
 
-router.post('/courses', adminMiddleware, async (req, res) => {})
+router.post('/courses', adminMiddleware, async (req, res) => {
+  // To create a New course
+  const title = req.body.title
+  const description = req.body.description
+  const imageLink = req.body.imageLink
+  const price = req.body.price
+  try {
+    const course = await Course.create({ title, description, imageLink, price })
+    res.json({ msg: 'Course Created Succesfully', courseId: course._id })
+  } catch (err) {
+    res.status(500).json({ msg: 'Internal some error occured', err })
+  }
+})
 
 router.get('/courses', adminMiddleware, async (req, res) => {
+  // For getting all the courses
   try {
     const courses = await Course.find({})
     res.json({ courses: courses })
