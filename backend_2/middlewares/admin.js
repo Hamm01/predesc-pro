@@ -7,7 +7,7 @@ async function adminMiddleware(req, res, next) {
   const token = req.headers.authorization
   const jwtToken = token.split(' ')[1]
   const d̥ecodedtoken = jwt.verify(jwtToken, jwtSecret)
-
+  // Below we are checking the username and role is user. means authoization check
   if (d̥ecodedtoken.username && d̥ecodedtoken.role === 'admin') {
     req.headers.username = d̥ecodedtoken.username
     next()
