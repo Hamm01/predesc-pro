@@ -6,6 +6,7 @@ async function userMiddleware(req, res, next) {
   const token = req.headers.authorization
   const JwtToken = token.split(' ')[1]
   const decodedValue = jwt.verify(JwtToken, JWTSECRET)
+  // Below we are checking the username and role is user. means authoization check
   if (decodedValue.username && decodedValue.role === 'user') {
     req.headers.username = decodedValue.username
     next()
