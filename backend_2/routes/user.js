@@ -1,8 +1,9 @@
 const { Router } = require('express')
+const dotenv = require('dotenv').config()
 const userMiddleware = require('../middlewares/user')
 const { User, Course } = require('../db')
 const jwt = require('jsonwebtoken')
-
+const JWTSECRET = process.env.JWT_SECRET
 const router = Router()
 
 router.post('/signup', async (req, res) => {
@@ -26,7 +27,22 @@ router.post('/signup', async (req, res) => {
       .json({ msg: 'Bad Request username and password cannot be empty' })
   }
 })
-router.get('/signin', async (req, res) => {})
+router.post('/signin', async (req, res) => {
+  const username = req.body.username
+  const password = req.body.password
+
+  try {
+    const userExists = await User.findOne({ username, password })
+    if (userExists) {
+      const token = jwt.sign({ username, role: 'user' }, JWTSECRET)
+      res.json({ token })
+    } else {
+      res.status(411).json({ msg: 'Username and password are wrong' })
+    }
+  } catch (err) {
+    res.status(500).json({ msg: 'Internal server Error', error: err })
+  }
+})
 
 router.get('/courses', async (req, res) => {})
 
