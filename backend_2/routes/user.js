@@ -54,7 +54,29 @@ router.get('/courses', async (req, res) => {
   }
 })
 
-router.post('/courses/:courseId', userMiddleware, async (req, res) => {})
+router.post('/courses/:courseId', userMiddleware, async (req, res) => {
+  const courseId = req.params.courseId
+  const username = req.headers.username
+  // Adding the Course id into the purchasedCourses array of user
+  try {
+    const courseAvailable = await Course.findOne({ _id: courseId })
+    if (courseAvailable) {
+      // pushing the course id into user purchasedCourses array
+      const check = await User.updateOne(
+        { username },
+        {
+          $push: {
+            purchasedCourses: courseId
+          }
+        }
+      )
+
+      res.json({ msg: 'Course Successfully Purchased' })
+    }
+  } catch (e) {
+    res.status(500).send({ msg: 'Internal Server Error' })
+  }
+})
 
 router.get('/purchasedCourses', userMiddleware, async (req, res) => {})
 
