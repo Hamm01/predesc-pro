@@ -40,11 +40,19 @@ router.post('/signin', async (req, res) => {
       res.status(411).json({ msg: 'Username and password are wrong' })
     }
   } catch (err) {
-    res.status(500).json({ msg: 'Internal server Error', error: err })
+    res.status(500).json({ msg: 'Internal server Error' })
   }
 })
 
-router.get('/courses', async (req, res) => {})
+router.get('/courses', async (req, res) => {
+  // This will be an open endpoint for all users to see the courses on website
+  try {
+    const courses = await Course.find({})
+    res.json(courses)
+  } catch (err) {
+    res.status(500).send({ msg: 'Internal Server Error' })
+  }
+})
 
 router.post('/courses/:courseId', userMiddleware, async (req, res) => {})
 
