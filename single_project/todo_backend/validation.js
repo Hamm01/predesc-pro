@@ -1,4 +1,4 @@
-const { zod: z } = require('zod')
+const z = require('zod')
 
 const createTodo = z.object({
   title: z.string(),
