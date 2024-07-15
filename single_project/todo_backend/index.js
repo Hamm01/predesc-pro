@@ -4,15 +4,26 @@ const { createTodo, updateTodo } = require('./validation')
 const app = express()
 app.use(bodyParser.json())
 
-app.post('/todo', (req, res) => {
+app.post('/todo', async (req, res) => {
+  // Creating the new Todo
   const title = req.body.title
   const description = req.body.description
-  const parsedPayload = createTodo.safeParse({ title, description })
+  try {
+    const parsedPayload = createTodo.safeParse({ title, description })
 
-  if (!parsedPayload.success) {
-    res.status(411).send({ msg: 'Wrong inputs sent in payload' })
+    if (!parsedPayload.success) {
+      res.status(411).send({ msg: 'Wrong inputs sent in payload' })
+    } else {
+      await todo.create({
+        title: parsedPayload.data.title,
+        description: parsedPayload.data.description,
+        completed: false
+      })
+      res.send({ msg: 'Added Todo Succesfully' })
+    }
+  } catch (err) {
+    res.status(500).send({ msg: 'Internal Server Error' })
   }
-  // Creating the new Todo
 })
 
 app.post('/todos', (req, res) => {
