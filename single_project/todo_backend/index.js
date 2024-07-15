@@ -2,6 +2,7 @@ const express = require('express')
 var bodyParser = require('body-parser')
 const { createTodo, updateTodo } = require('./validation')
 const app = express()
+const { todo } = require('./db')
 app.use(bodyParser.json())
 
 app.post('/todo', async (req, res) => {
