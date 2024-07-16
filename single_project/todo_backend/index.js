@@ -35,12 +35,26 @@ app.get('/todos', async (req, res) => {
     res.status(500).send({ msg: 'Internal Server Error' })
   }
 })
-app.put('/completed', (req, res) => {
+app.put('/completed', async (req, res) => {
   // Toggle done Todo using this endpoint
   const updatedTodo = req.body
-  const parsedPayload = updateTodo.safeParse(updatedTodo)
-  if (!parsedPayload.success) {
-    res.status(411).send({ msg: 'Wrong input sent in payload' })
+  try {
+    const parsedPayload = updateTodo.safeParse(updatedTodo)
+    if (!parsedPayload.success) {
+      res.status(411).send({ msg: 'Wrong input sent in payload' })
+    } else {
+      await todo.update(
+        {
+          _id: parsedPayload.data.id
+        },
+        {
+          completed: true
+        }
+      )
+      res.send({ msg: 'Todo marked as completed' })
+    }
+  } catch (err) {
+    res.status(500).send({ msg: 'Internal Server Error' })
   }
 })
 
