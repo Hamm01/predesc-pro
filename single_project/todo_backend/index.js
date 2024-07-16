@@ -26,8 +26,14 @@ app.post('/todo', async (req, res) => {
   }
 })
 
-app.post('/todos', (req, res) => {
+app.get('/todos', async (req, res) => {
   // Getting all the Todos
+  try {
+    const todos = await todo.find({})
+    res.json({ todos })
+  } catch (err) {
+    res.status(500).send({ msg: 'Internal Server Error' })
+  }
 })
 app.put('/completed', (req, res) => {
   // Toggle done Todo using this endpoint
