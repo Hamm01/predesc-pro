@@ -43,14 +43,7 @@ app.put('/completed', async (req, res) => {
     if (!parsedPayload.success) {
       res.status(411).send({ msg: 'Wrong input sent in payload' })
     } else {
-      await todo.update(
-        {
-          _id: parsedPayload.data.id
-        },
-        {
-          completed: true
-        }
-      )
+      await todo.updateOne({ _id: req.body.id }, { $set: { completed: true } })
       res.send({ msg: 'Todo marked as completed' })
     }
   } catch (err) {
