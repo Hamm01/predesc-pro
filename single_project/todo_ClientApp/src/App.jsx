@@ -1,7 +1,11 @@
 import './App.css'
-
+import CreateTodo from './components/CreateTodo'
 function App() {
-  return <>Himanish</>
+  return (
+    <>
+      <CreateTodo></CreateTodo>
+    </>
+  )
 }
 
 export default App
