@@ -1,9 +1,11 @@
 const express = require('express')
 var bodyParser = require('body-parser')
+const cors = require('cors')
 const { createTodo, updateTodo } = require('./validation')
 const app = express()
 const { todo } = require('./db')
 app.use(bodyParser.json())
+app.use(cors())
 
 app.post('/todo', async (req, res) => {
   // Creating the new Todo
