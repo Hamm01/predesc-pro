@@ -29,3 +29,48 @@
   background-color: azure;
   cursor: pointer;
 }
+
+.todos-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.singleTodo {
+  display: flex;
+  align-items: start;
+  padding: 10px;
+  border: 1px solid red;
+  border-radius: 5px;
+  width: 350px;
+  cursor: pointer;
+  gap: 20px;
+  background-color: grey;
+
+
+}
+
+.title-desc .title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+  line-height: 0.8;
+  text-wrap: wrap;
+}
+
+.title-desc .desc {
+  margin-top: 20px;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.input-checkText {
+  display: flex;
+  gap: 10px;
+}
+
+#markAsdone {
+  width: 50px;
+
+}
