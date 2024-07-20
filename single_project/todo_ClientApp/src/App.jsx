@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import CreateTodo from './components/CreateTodo'
 import Todo from './components/Todo'
-import todoFetchRequest from './db/todo'
+import { todoFetchRequest } from './db/todo'
 function App() {
-  const [todos, setTodos] = useState(null)
+  const [todos, setTodos] = useState([])
 
   useEffect(() => {
     async function fetchData() {
