@@ -43,12 +43,20 @@
   padding: 10px;
   border: 1px solid red;
   border-radius: 5px;
-  width: 350px;
+  width: 500px;
   cursor: pointer;
   gap: 20px;
-  background-color: grey;
+}
 
+.title-desc {
+  flex-grow: 2;
+  min-width: 300px;
+}
 
+.input-checkText {
+  flex-grow: 1;
+  min-width: 200px;
+  word-wrap: break-word;
 }
 
 .title-desc .title {
@@ -71,6 +79,6 @@
 }
 
 #markAsdone {
-  width: 50px;
-
+  width: 30px;
+  margin: 0;
 }
